@@ -1,10 +1,17 @@
 //Variables
 const result = document.querySelector("#resultado")
+
+const maxYear = new Date().getFullYear()
+const minYear = maxYear - 12
+
 const years = document.querySelector("#year")
 
 //Events
 document.addEventListener("DOMContentLoaded", () => {
     showAutos() //Show autos when the website has loaded
+
+    //Fill the year options
+    fillSelect()
 })
 
 
@@ -21,4 +28,15 @@ function showAutos() {
         //To insert in HTML
         result.appendChild(autoHTML)
     })
+}
+
+function fillSelect() {
+    
+    for(i = maxYear; i >= minYear; i--) {
+        const option = document.createElement("option")
+        option.value = i
+        option.textContent = i
+        years.appendChild(option)
+    }
+
 }
