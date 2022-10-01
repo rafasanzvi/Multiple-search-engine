@@ -1,10 +1,29 @@
 //Variables
-const result = document.querySelector("#resultado")
+const years = document.querySelector("#year")
+const brand = document.querySelector("#marca")
+const minPrice = document.querySelector("#minimo")
+const maxPrice = document.querySelector("#maximo")
+const doors = document.querySelector("#puertas")
+const transmission = document.querySelector("#transmision")
+const color = document.querySelector("#color")
 
 const maxYear = new Date().getFullYear()
 const minYear = maxYear - 12
 
-const years = document.querySelector("#year")
+//Container to the results
+const result = document.querySelector("#resultado")
+
+
+//Create an object with the search
+const dataSearch = {
+    marca: "",
+    year: "",
+    minimo: "",
+    maximo: "",
+    puertas: "",
+    color: "",
+    transmision: "",  
+}
 
 //Events
 document.addEventListener("DOMContentLoaded", () => {
@@ -14,6 +33,36 @@ document.addEventListener("DOMContentLoaded", () => {
     fillSelect()
 })
 
+//Event listener to the search selects
+brand.addEventListener("change", e => {
+    dataSearch.marca = e.target.value
+})
+
+years.addEventListener("change", e =>{
+    dataSearch.year = e.target.value
+})
+
+minPrice.addEventListener("change", e => {
+    dataSearch.minimo = e.target.value
+})
+
+maxPrice.addEventListener("change", e => {
+    dataSearch.maximo = e.target.value
+})
+
+doors.addEventListener("change", e => {
+    dataSearch.puertas = e.target.value
+})
+
+color.addEventListener("change", e => {
+    dataSearch.color = e.target.value
+})
+
+transmission.addEventListener("change", e => {
+    dataSearch.transmision = e.target.value
+
+    console.log(dataSearch)
+})
 
 //Functions
 function showAutos() {
