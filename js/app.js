@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
 //Event listener to the search selects
 brand.addEventListener("change", e => {
     dataSearch.marca = e.target.value
+
+    autoFilter()
 })
 
 years.addEventListener("change", e =>{
@@ -88,4 +90,19 @@ function fillSelect() {
         years.appendChild(option)
     }
 
+}
+
+//Function to filtering depend the search
+function autoFilter() {
+    const result = autos.filter(brandFilter)
+
+    console.log(result)
+}
+
+function brandFilter(auto) {
+    const { marca } = dataSearch // The same that dataSearch.marca
+    if(marca) {
+        return auto.marca === marca
+    }
+    return auto
 }
