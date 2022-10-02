@@ -27,7 +27,7 @@ const dataSearch = {
 
 //Events
 document.addEventListener("DOMContentLoaded", () => {
-    showAutos() //Show autos when the website has loaded
+    showAutos(autos) //Show autos when the website has loaded
 
     //Fill the year options
     fillSelect()
@@ -69,7 +69,10 @@ transmission.addEventListener("change", e => {
 })
 
 //Functions
-function showAutos() {
+function showAutos(autos) {
+
+    cleanHtml()
+
     autos.forEach(auto => {
 
         const { marca, modelo, year, precio, puertas, color, transmision } = auto
@@ -83,6 +86,13 @@ function showAutos() {
     })
 }
 
+//Function to clean previous HTML
+function cleanHtml() {
+    while(result.firstChild) {
+        result.removeChild(result.firstChild)
+    }
+}
+
 function fillSelect() {
 
     for (i = maxYear; i >= minYear; i--) {
@@ -91,14 +101,15 @@ function fillSelect() {
         option.textContent = i
         years.appendChild(option)
     }
-
 }
 
 //Function to filtering depend the search
 function autoFilter() {
     const result = autos.filter(brandFilter).filter(yearFilter)
 
-    console.log(result)
+    // console.log(result)
+
+    showAutos(result)
 }
 
 function brandFilter(auto) {
