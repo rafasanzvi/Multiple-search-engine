@@ -22,7 +22,7 @@ const dataSearch = {
     maximo: "",
     puertas: "",
     color: "",
-    transmision: "",  
+    transmision: "",
 }
 
 //Events
@@ -40,8 +40,10 @@ brand.addEventListener("change", e => {
     autoFilter()
 })
 
-years.addEventListener("change", e =>{
-    dataSearch.year = e.target.value
+years.addEventListener("change", e => {
+    dataSearch.year = parseInt(e.target.value) //Now the datas come like string
+
+    autoFilter()
 })
 
 minPrice.addEventListener("change", e => {
@@ -69,8 +71,8 @@ transmission.addEventListener("change", e => {
 //Functions
 function showAutos() {
     autos.forEach(auto => {
-        
-        const {marca, modelo, year, precio, puertas, color, transmision} = auto
+
+        const { marca, modelo, year, precio, puertas, color, transmision } = auto
         const autoHTML = document.createElement("p")
 
         //To give content to the autoHTML´s "p"
@@ -82,8 +84,8 @@ function showAutos() {
 }
 
 function fillSelect() {
-    
-    for(i = maxYear; i >= minYear; i--) {
+
+    for (i = maxYear; i >= minYear; i--) {
         const option = document.createElement("option")
         option.value = i
         option.textContent = i
@@ -94,15 +96,28 @@ function fillSelect() {
 
 //Function to filtering depend the search
 function autoFilter() {
-    const result = autos.filter(brandFilter)
+    const result = autos.filter(brandFilter).filter(yearFilter)
 
     console.log(result)
 }
 
 function brandFilter(auto) {
     const { marca } = dataSearch // The same that dataSearch.marca
-    if(marca) {
+    if (marca) {
         return auto.marca === marca
     }
     return auto
 }
+
+function yearFilter(auto) {
+    const { year } = dataSearch
+    /* console.log("I am year", typeof year)
+    console.log("I am auto.year", typeof auto.year) */
+    if (year) {
+        return auto.year === year  //Here the result is an empty string because the function is trying to campare a string with a number, "year" is the string, something common when datas come from of a form
+        //return auto.year === parseInt(year) we had use parseInt() here but is better practice to use in years listener to avoid use to match logic in this function.
+    }
+    return auto
+}
+
+
