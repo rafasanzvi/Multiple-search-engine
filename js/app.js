@@ -48,10 +48,14 @@ years.addEventListener("change", e => {
 
 minPrice.addEventListener("change", e => {
     dataSearch.minimo = e.target.value
+
+    autoFilter()
 })
 
 maxPrice.addEventListener("change", e => {
     dataSearch.maximo = e.target.value
+
+    autoFilter()
 })
 
 doors.addEventListener("change", e => {
@@ -105,7 +109,7 @@ function fillSelect() {
 
 //Function to filtering depend the search
 function autoFilter() {
-    const result = autos.filter(brandFilter).filter(yearFilter)
+    const result = autos.filter(brandFilter).filter(yearFilter).filter(minFilter).filter(maxFilter)
 
     // console.log(result)
 
@@ -127,6 +131,22 @@ function yearFilter(auto) {
     if (year) {
         return auto.year === year  //Here the result is an empty string because the function is trying to campare a string with a number, "year" is the string, something common when datas come from of a form
         //return auto.year === parseInt(year) we had use parseInt() here but is better practice to use in years listener to avoid use to match logic in this function.
+    }
+    return auto
+}
+
+function minFilter(auto) {
+    const { minimo } = dataSearch
+    if (minimo) {
+        return auto.precio >= minimo
+    }
+    return auto
+}
+
+function maxFilter(auto) {
+    const { maximo } = dataSearch
+    if (maximo) {
+        return auto.precio <= maximo
     }
     return auto
 }
