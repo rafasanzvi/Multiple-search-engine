@@ -59,17 +59,21 @@ maxPrice.addEventListener("change", e => {
 })
 
 doors.addEventListener("change", e => {
-    dataSearch.puertas = e.target.value
+    dataSearch.puertas = parseInt(e.target.value)
+
+    autoFilter()
 })
 
 color.addEventListener("change", e => {
     dataSearch.color = e.target.value
+
+    autoFilter()
 })
 
 transmission.addEventListener("change", e => {
     dataSearch.transmision = e.target.value
 
-    console.log(dataSearch)
+    autoFilter()
 })
 
 //Functions
@@ -92,7 +96,7 @@ function showAutos(autos) {
 
 //Function to clean previous HTML
 function cleanHtml() {
-    while(result.firstChild) {
+    while (result.firstChild) {
         result.removeChild(result.firstChild)
     }
 }
@@ -109,7 +113,7 @@ function fillSelect() {
 
 //Function to filtering depend the search
 function autoFilter() {
-    const result = autos.filter(brandFilter).filter(yearFilter).filter(minFilter).filter(maxFilter)
+    const result = autos.filter(brandFilter).filter(yearFilter).filter(minFilter).filter(maxFilter).filter(doorFilter).filter(transmissionFilter).filter(colorFilter)
 
     // console.log(result)
 
@@ -150,5 +154,33 @@ function maxFilter(auto) {
     }
     return auto
 }
+
+function doorFilter(auto) {
+    const { puertas } = dataSearch
+    if (puertas) {
+        return auto.puertas === puertas
+    }
+    return auto
+}
+
+function transmissionFilter(auto) {
+    const { transmision } = dataSearch
+    if (transmision) {
+        return auto.transmision === transmision
+    }
+    return auto
+}
+
+function colorFilter(auto) {
+    const { color } = dataSearch
+    if (color) {
+        return auto.color === color
+    }
+    return auto
+}
+
+
+
+
 
 
