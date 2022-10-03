@@ -115,9 +115,23 @@ function fillSelect() {
 function autoFilter() {
     const result = autos.filter(brandFilter).filter(yearFilter).filter(minFilter).filter(maxFilter).filter(doorFilter).filter(transmissionFilter).filter(colorFilter)
 
-    // console.log(result)
+    console.log(result)
 
-    showAutos(result)
+    if(result.length) {
+        showAutos(result) 
+    } else {
+        notResult()
+    }
+}
+
+function notResult() {
+    
+    cleanHtml()
+
+    const notResult = document.createElement("div")
+    notResult.classList.add("alerta", "error")
+    notResult.textContent = "There is not result with this search, you can try with other kinds of datas"
+    result.appendChild(notResult)
 }
 
 function brandFilter(auto) {
@@ -178,6 +192,7 @@ function colorFilter(auto) {
     }
     return auto
 }
+
 
 
 
